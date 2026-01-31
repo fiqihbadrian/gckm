@@ -32,6 +32,15 @@ class Berita extends Model
                 $berita->slug = Str::slug($berita->title);
             }
         });
+        
+        // Clear cache when berita changes
+        static::saved(function () {
+            \Cache::forget('home.beritas');
+        });
+        
+        static::deleted(function () {
+            \Cache::forget('home.beritas');
+        });
     }
 
     // Scope for published news

@@ -28,7 +28,7 @@
             @forelse($beritas as $berita)
             <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden flex flex-col h-full">
                 @if($berita->image)
-                    <img src="{{ Storage::url($berita->image) }}" alt="{{ $berita->title }}" class="w-full h-48 object-cover">
+                    <img loading="lazy" src="{{ Storage::url($berita->image) }}" alt="{{ $berita->title }}" class="w-full h-48 object-cover">
                 @else
                     <div class="w-full h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
                         <i class="fas fa-newspaper text-white text-4xl"></i>

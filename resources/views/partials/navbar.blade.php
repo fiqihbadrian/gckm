@@ -22,9 +22,21 @@
         <!-- MOBILE BUTTON -->
         <button
             @click="mobileMenuOpen = !mobileMenuOpen"
-            class="md:hidden text-2xl text-gray-800"
+            class="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none group"
+            aria-label="Toggle menu"
         >
-            ☰
+            <span 
+                class="w-6 h-0.5 bg-gray-800 rounded-full transition-all duration-300 ease-in-out"
+                :class="mobileMenuOpen ? 'rotate-45 translate-y-2' : ''"
+            ></span>
+            <span 
+                class="w-6 h-0.5 bg-gray-800 rounded-full transition-all duration-300 ease-in-out"
+                :class="mobileMenuOpen ? 'opacity-0' : 'opacity-100'"
+            ></span>
+            <span 
+                class="w-6 h-0.5 bg-gray-800 rounded-full transition-all duration-300 ease-in-out"
+                :class="mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''"
+            ></span>
         </button>
     </nav>
 </div>
@@ -43,10 +55,10 @@
     style="display: none;"
 >
     <div class="p-6 space-y-2">
-        <a href="{{ Request::is('/') ? '#home' : route('home') . '#home' }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Home</a>
-        <a href="{{ Request::is('/') ? '#denah' : route('home') . '#denah' }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Denah</a>
-        <a href="{{ Request::is('/') ? '#fasilitas' : route('home') . '#fasilitas' }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Fasilitas</a>
-        <a href="{{ Request::is('/') ? '#berita' : route('berita') }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Berita</a>
-        <a href="{{ Request::is('/') ? '#kontak' : route('home') . '#kontak' }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Kontak</a>
+        <a href="{{ Request::is('/') ? '#home' : route('home') . '#home' }}" @click="mobileMenuOpen = false" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Home</a>
+        <a href="{{ Request::is('/') ? '#denah' : route('home') . '#denah' }}" @click="mobileMenuOpen = false" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Denah</a>
+        <a href="{{ Request::is('/') ? '#fasilitas' : route('home') . '#fasilitas' }}" @click="mobileMenuOpen = false" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Fasilitas</a>
+        <a href="{{ Request::is('/') ? '#berita' : route('berita') }}" @click="mobileMenuOpen = false" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Berita</a>
+        <a href="{{ Request::is('/') ? '#kontak' : route('home') . '#kontak' }}" @click="mobileMenuOpen = false" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Kontak</a>
     </div>
 </div>

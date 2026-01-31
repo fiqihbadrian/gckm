@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Rumah;
 use App\Models\Berita;
 use App\Models\Denah;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -14,10 +15,18 @@ class HomeController extends Controller
         // Get filter from request
         $filterBlok = $request->get('blok');
         
-        // Get statistics
-        $totalRumah = Rumah::count();
-        $rumahTerisi = Rumah::where('status', 'terisi')->count();
-        $rumahKosong = Rumah::where('status', 'kosong')->count();
+        // Cache statistics for 5 minutes
+        $stats = Cache::remember('home.stats', 300, function() {
+            return [
+                'total' => Rumah::count(),
+                'terisi' => Rumah::where('status', 'terisi')->count(),
+                'kosong' => Rumah::where('status', 'kosong')->count(),
+            ];
+        });
+        
+        $totalRumah = $stats['total'];
+        $rumahTerisi = $stats['terisi'];
+        $rumahKosong = $stats['kosong'];
         
         // Get active blocks from Denah table
         $denahsQuery = Denah::active()->orderBy('blok');
@@ -29,8 +38,10 @@ class HomeController extends Controller
         
         $denahs = $denahsQuery->get();
         
-        // Get all houses
-        $rumahsByBlok = Rumah::all()->groupBy('blok');
+        // Get all houses - optimize with select only needed columns
+        $rumahsByBlok = Rumah::select('id', 'blok', 'nomor', 'status', 'penghuni')
+            ->get()
+            ->groupBy('blok');
         
         // Calculate stats for each denah blok
         $blokStats = [];
@@ -50,8 +61,14 @@ class HomeController extends Controller
             ];
         }
         
-        // Get published news (latest 3)
-        $beritas = Berita::published()->latest('published_at')->take(3)->get();
+        // Get published news (latest 3) - cache for 10 minutes
+        $beritas = Cache::remember('home.beritas', 600, function() {
+            return Berita::published()
+                ->select('id', 'title', 'slug', 'excerpt', 'image', 'published_at', 'created_at')
+                ->latest('published_at')
+                ->take(3)
+                ->get();
+        });
         
         // Get all unique bloks for filter dropdown (from Denah table)
         $availableBloks = Denah::active()->orderBy('blok')->pluck('blok');

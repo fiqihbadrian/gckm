@@ -24,6 +24,20 @@ class Rumah extends Model
     protected $attributes = [
         'jumlah_penghuni' => 0,
     ];
+    
+    // Clear cache when rumah changes
+    public static function boot()
+    {
+        parent::boot();
+        
+        static::saved(function () {
+            \Cache::forget('home.stats');
+        });
+        
+        static::deleted(function () {
+            \Cache::forget('home.stats');
+        });
+    }
 
     // Relationship with Denah
     public function denah()

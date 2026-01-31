@@ -39,7 +39,7 @@
 @if($berita->image)
 <section class="max-w-5xl mx-auto px-4 md:px-6 mb-6 md:mb-8">
     <div class="rounded-2xl md:rounded-3xl overflow-hidden shadow-xl md:shadow-2xl">
-        <img src="{{ Storage::url($berita->image) }}" alt="{{ $berita->title }}" 
+        <img loading="lazy" src="{{ Storage::url($berita->image) }}" alt="{{ $berita->title }}" 
              class="w-full h-auto max-h-[400px] md:max-h-[600px] object-cover">
     </div>
 </section>
@@ -121,7 +121,7 @@
                 <div class="bg-white rounded-xl md:rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden h-full transform hover:-translate-y-2">
                     @if($related->image)
                         <div class="relative overflow-hidden h-40 md:h-48">
-                            <img src="{{ Storage::url($related->image) }}" alt="{{ $related->title }}" 
+                            <img loading="lazy" src="{{ Storage::url($related->image) }}" alt="{{ $related->title }}" 
                                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute top-2 right-2 md:top-3 md:right-3 bg-green-600 text-white px-2 py-1 md:px-3 md:py-1 rounded-full text-xs font-semibold">
                                 <i class="far fa-calendar mr-1 text-xs"></i>{{ $related->published_at->format('d M') }}

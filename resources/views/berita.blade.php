@@ -66,7 +66,7 @@
                 <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col h-full transform hover:-translate-y-2">
                     @if($berita->image)
                         <div class="relative overflow-hidden h-48">
-                            <img src="{{ Storage::url($berita->image) }}" alt="{{ $berita->title }}" 
+                            <img loading="lazy" src="{{ Storage::url($berita->image) }}" alt="{{ $berita->title }}" 
                                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute top-3 right-3 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
                                 <i class="far fa-calendar mr-1"></i>{{ $berita->published_at->format('d M') }}

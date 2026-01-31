@@ -17,8 +17,18 @@
 <meta name="twitter:title" content="{{ config('site.meta.title') }}">
 <meta name="twitter:description" content="{{ config('site.meta.description') }}">
 <meta name="twitter:image" content="{{ asset(config('site.meta.image')) }}">
+
+<!-- Preload Critical Resources -->
+<link rel="preconnect" href="https://cdn.tailwindcss.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+<!-- Styles - Load async for non-critical -->
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+<!-- Alpine.js - Defer loading -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <style>
@@ -66,11 +76,53 @@
         overflow-x: hidden;
         overflow-y: auto;
     }
+    
+    /* Lazy Loading Images */
+    img[loading="lazy"] {
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    
+    img[loading="lazy"].loaded {
+        opacity: 1;
+    }
 </style>
 
 <script>
 // Enhanced Smooth Scroll untuk performa lebih baik
 document.addEventListener('DOMContentLoaded', function() {
+    // Lazy Loading Images
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.01
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    } else {
+        // Fallback for browsers without IntersectionObserver
+        images.forEach(img => {
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+            }
+            img.classList.add('loaded');
+        });
+    }
+    
     // Handle semua anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -99,15 +151,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Optimize scroll performance
+    // Optimize scroll performance dengan throttling
     let ticking = false;
+    let lastScrollY = window.pageYOffset;
+    
     window.addEventListener('scroll', function() {
+        lastScrollY = window.pageYOffset;
+        
         if (!ticking) {
             window.requestAnimationFrame(function() {
+                // Your scroll handler code here
                 ticking = false;
             });
             ticking = true;
         }
-    });
+    }, { passive: true }); // Passive listener untuk performa lebih baik
 });
 </script>

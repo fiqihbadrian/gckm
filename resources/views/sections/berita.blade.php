@@ -8,25 +8,32 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Berita 1 -->
+            @forelse($beritas as $berita)
             <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
-                <img src="https://source.unsplash.com/400x250/?community,event" alt="Berita 1" class="w-full h-48 object-cover">
+                @if($berita->image)
+                    <img src="{{ Storage::url($berita->image) }}" alt="{{ $berita->title }}" class="w-full h-48 object-cover">
+                @else
+                    <div class="w-full h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                        <i class="fas fa-newspaper text-white text-4xl"></i>
+                    </div>
+                @endif
                 <div class="p-6">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Acara Gotong Royong Warga</h3>
-                    <p class="text-gray-600 mb-4">Bergabunglah dalam acara gotong royong untuk membersihkan lingkungan perumahan kita pada tanggal 15 Juli 2024.</p>
-                    <a href="#" class="text-blue-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">{{ $berita->title }}</h3>
+                    <p class="text-gray-600 mb-4">{{ Str::limit(strip_tags($berita->content), 120) }}</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500">
+                            <i class="far fa-calendar mr-1"></i>{{ $berita->published_at->format('d M Y') }}
+                        </span>
+                        <a href="#" class="text-blue-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
+                    </div>
                 </div>
             </div>
-
-            <!-- Berita 2 -->
-            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
-                <img src="https://source.unsplash.com/400x250/?housing,development" alt="Berita 2" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Pembangunan Fasilitas Baru</h3>
-                    <p class="text-gray-600 mb-4">Kami senang mengumumkan pembangunan fasilitas olahraga baru yang akan segera hadir di perumahan kita.</p>
-                    <a href="#" class="text-blue-600 font-semibold hover:underline">Baca Selengkapnya &rarr;</a>
-                </div>
+            @empty
+            <div class="col-span-full text-center py-12">
+                <i class="fas fa-inbox text-gray-400 text-5xl mb-4"></i>
+                <p class="text-gray-500 text-lg">Belum ada berita terbaru</p>
             </div>
+            @endforelse
         </div>
     </div>
 </section>

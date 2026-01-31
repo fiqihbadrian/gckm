@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Blok Coordinate Mapper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 20px;
+        }
+        .map-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .reference-map {
+            position: relative;
+            width: 100%;
+            border: 2px solid #ccc;
+        }
+        .reference-map img {
+            width: 100%;
+            display: block;
+        }
+        .info-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        h2 {
+            color: #555;
+            font-size: 18px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .coordinate-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .instruction {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .example {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .toggle-view {
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🗺️ Peta Blok - Coordinate Mapper Tool</h1>
+    
+    <div class="container">
+        <div class="map-container">
+            <h2>Referensi Peta dengan Marker Blok</h2>
+            <div class="toggle-view">
+                <button onclick="showImage('images/peta-blok.png')">Tampilkan Peta dengan Marker</button>
+                <button onclick="showImage('images/peta.png')">Tampilkan Peta Asli</button>
+            </div>
+            <div class="reference-map" id="mapContainer">
+                <img src="images/peta-blok.png" alt="Peta Blok" id="petaImage" onload="setupCoordinateMapper()">
+            </div>
+            <div class="coordinate-info" id="coordDisplay">
+                <strong>Hover mouse di gambar untuk melihat koordinat</strong><br>
+                Pixel: <span id="pixelCoord">-</span><br>
+                Percentage: <span id="percentCoord">-</span>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <h2>📋 Instruksi</h2>
+            <div class="instruction">
+                <strong>Cara Menggunakan:</strong>
+                <ol>
+                    <li>Lihat peta dengan marker blok</li>
+                    <li>Hover mouse ke 4 sudut setiap blok</li>
+                    <li>Catat koordinat persentase</li>
+                    <li>Masukkan ke kode SVG polygon</li>
+                </ol>
+            </div>
+            
+            <h2>🎯 Format Polygon</h2>
+            <div class="code-block">
+&lt;polygon 
+    points="x1,y1 x2,y2 x3,y3 x4,y4"
+    class="fill-blue-500..."
+    @click="clickBlok('A')"
+/&gt;
+            </div>
+            
+            <div class="example">
+                <strong>Contoh untuk Blok A:</strong><br>
+                Jika di peta-blok.png Blok A berada di:<br>
+                - Top-left: 12%, 25%<br>
+                - Top-right: 35%, 25%<br>
+                - Bottom-right: 35%, 55%<br>
+                - Bottom-left: 12%, 55%<br>
+                <br>
+                Maka kode SVG:
+                <div class="code-block" style="font-size: 12px; margin-top: 10px;">
+points="12,25 35,25 35,55 12,55"
+                </div>
+            </div>
+            
+            <h2>🎨 Warna Blok</h2>
+            <div style="font-size: 14px;">
+                <div style="margin: 5px 0;">🔵 Blue - Blok A</div>
+                <div style="margin: 5px 0;">🟢 Green - Blok B</div>
+                <div style="margin: 5px 0;">🟡 Yellow - Blok C</div>
+                <div style="margin: 5px 0;">🔴 Red - Blok D</div>
+                <div style="margin: 5px 0;">🟣 Purple - Blok E</div>
+                <div style="margin: 5px 0;">🟠 Orange - Blok F</div>
+            </div>
+            
+            <h2>💡 Tips</h2>
+            <ul style="font-size: 14px;">
+                <li>Urutan titik: Top-left → Top-right → Bottom-right → Bottom-left</li>
+                <li>Gunakan koordinat persentase untuk responsive</li>
+                <li>Beri margin 2-3% dari tepi gambar</li>
+                <li>Test dengan opacity-50 untuk debugging</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function setupCoordinateMapper() {
+            const img = document.getElementById('petaImage');
+            const pixelCoord = document.getElementById('pixelCoord');
+            const percentCoord = document.getElementById('percentCoord');
+            const mapContainer = document.getElementById('mapContainer');
+            
+            mapContainer.addEventListener('mousemove', function(e) {
+                const rect = img.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Calculate percentage
+                const xPercent = Math.round((x / rect.width) * 100);
+                const yPercent = Math.round((y / rect.height) * 100);
+                
+                // Calculate actual pixel on original image (1440x1080)
+                const actualX = Math.round((x / rect.width) * 1440);
+                const actualY = Math.round((y / rect.height) * 1080);
+                
+                pixelCoord.textContent = `${actualX}, ${actualY}`;
+                percentCoord.textContent = `${xPercent}, ${yPercent}`;
+            });
+            
+            mapContainer.addEventListener('click', function(e) {
+                const rect = img.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = Math.round((x / rect.width) * 100);
+                const yPercent = Math.round((y / rect.height) * 100);
+                
+                // Copy to clipboard
+                const coord = `${xPercent},${yPercent}`;
+                navigator.clipboard.writeText(coord).then(() => {
+                    alert(`Koordinat ${coord} disalin ke clipboard!`);
+                });
+            });
+        }
+        
+        function showImage(imageName) {
+            document.getElementById('petaImage').src = imageName;
+        }
+    </script>
+</body>
+</html>

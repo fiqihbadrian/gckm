@@ -20,4 +20,14 @@ class Rumah extends Model
     protected $casts = [
         'status' => 'string',
     ];
+
+    protected $attributes = [
+        'jumlah_penghuni' => 0,
+    ];
+
+    // Relationship with Denah
+    public function denah()
+    {
+        return $this->belongsTo(Denah::class, 'blok', 'blok');
+    }
 }

@@ -8,147 +8,73 @@ use App\Models\Rumah;
 class RumahSeeder extends Seeder
 {
     /**
-     * Run the database seeder.
+     * Run the database seeds.
      */
     public function run(): void
     {
-        // Sample names for residents
-        $names = [
-            'Budi Santoso', 'Siti Aminah', 'Ahmad Fauzi', 'Dewi Lestari', 'Eko Prasetyo',
-            'Fitri Handayani', 'Gunawan', 'Hana Permata', 'Indra Wijaya', 'Joko Susilo',
-            'Kartika Sari', 'Lukman Hakim', 'Maya Anggraini', 'Nugroho', 'Olivia Tan',
-            'Putri Wulandari', 'Reza Ramadhan', 'Silvia Nursanti', 'Toni Hermawan', 'Umar Bakri'
-        ];
-
-        // Blok A - 7 rumah (90% terisi - 6 terisi, 1 kosong)
-        $blokAData = [
-            ['nomor' => 14, 'status' => 'terisi'],
-            ['nomor' => 15, 'status' => 'kosong'],
-            ['nomor' => 16, 'status' => 'terisi'],
-            ['nomor' => 17, 'status' => 'kosong'],
-            ['nomor' => 18, 'status' => 'terisi'],
-            ['nomor' => 19, 'status' => 'kosong'],
-            ['nomor' => 20, 'status' => 'terisi'],
-        ];
-
-        foreach ($blokAData as $index => $data) {
-            Rumah::create([
-                'blok' => 'A',
-                'nomor' => $data['nomor'],
-                'status' => $data['status'],
-                'penghuni' => $data['status'] == 'terisi' ? $names[array_rand($names)] : null,
-                'no_telp' => $data['status'] == 'terisi' ? '+62 8' . rand(10, 99) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999) : null,
-                'email' => $data['status'] == 'terisi' ? strtolower(str_replace(' ', '', $names[array_rand($names)])) . '@email.com' : null,
-                'jumlah_penghuni' => $data['status'] == 'terisi' ? rand(2, 5) : 0,
-            ]);
+        // Hapus data lama
+        Rumah::truncate();
+        
+        // Nama-nama Indonesia untuk random
+        $namaDepan = ['Budi', 'Siti', 'Agus', 'Dewi', 'Rudi', 'Ani', 'Eko', 'Sri', 'Joko', 'Rina', 
+                      'Bambang', 'Lina', 'Hadi', 'Wati', 'Ahmad', 'Ratna', 'Yudi', 'Sari', 'Dedi', 'Maya'];
+        $namaBelakang = ['Santoso', 'Wijaya', 'Pratama', 'Kusuma', 'Setiawan', 'Putri', 'Nugroho', 
+                         'Handoko', 'Susanto', 'Wulandari', 'Permana', 'Lestari', 'Saputra', 'Rahayu'];
+        
+        // 4 Blok: A, B, C, D
+        $bloks = ['A', 'B', 'C', 'D'];
+        
+        foreach ($bloks as $blok) {
+            // Tiap blok 15 rumah (nomor 1-15)
+            for ($nomor = 1; $nomor <= 15; $nomor++) {
+                // Random status: 70% terisi, 30% kosong
+                $status = rand(1, 10) <= 7 ? 'terisi' : 'kosong';
+                
+                $data = [
+                    'blok' => $blok,
+                    'nomor' => $nomor,
+                    'status' => $status,
+                ];
+                
+                // Jika terisi, tambahkan data penghuni
+                if ($status === 'terisi') {
+                    $namaLengkap = $namaDepan[array_rand($namaDepan)] . ' ' . $namaBelakang[array_rand($namaBelakang)];
+                    
+                    $data['penghuni'] = $namaLengkap;
+                    $data['no_telp'] = '08' . rand(1, 9) . rand(100000000, 999999999);
+                    $data['email'] = strtolower(str_replace(' ', '.', $namaLengkap)) . '@email.com';
+                    $data['jumlah_penghuni'] = rand(2, 6);
+                    
+                    // Random keterangan (50% punya keterangan)
+                    if (rand(1, 2) == 1) {
+                        $keteranganList = [
+                            'Keluarga harmonis',
+                            'Rumah bersih dan terawat',
+                            'Punya anjing peliharaan',
+                            'Suka berkebun',
+                            'Aktif di kegiatan RT',
+                            'Sering keluar kota',
+                            'Punya usaha rumahan',
+                            'Guru SD setempat',
+                            'Pegawai swasta',
+                            'Pensiunan',
+                        ];
+                        $data['keterangan'] = $keteranganList[array_rand($keteranganList)];
+                    }
+                } else {
+                    // Rumah kosong
+                    $data['penghuni'] = null;
+                    $data['no_telp'] = null;
+                    $data['email'] = null;
+                    $data['jumlah_penghuni'] = 0;
+                    $data['keterangan'] = rand(1, 3) == 1 ? 'Sedang direnovasi' : null;
+                }
+                
+                Rumah::create($data);
+            }
         }
-
-        // Blok B - 20 rumah (65% terisi - 13 terisi, 7 kosong)
-        $blokBData = [
-            ['nomor' => 1, 'status' => 'terisi'],
-            ['nomor' => 2, 'status' => 'terisi'],
-            ['nomor' => 3, 'status' => 'kosong'],
-            ['nomor' => 4, 'status' => 'terisi'],
-            ['nomor' => 5, 'status' => 'kosong'],
-            ['nomor' => 6, 'status' => 'terisi'],
-            ['nomor' => 7, 'status' => 'terisi'],
-            ['nomor' => 8, 'status' => 'kosong'],
-            ['nomor' => 9, 'status' => 'terisi'],
-            ['nomor' => 10, 'status' => 'terisi'],
-            ['nomor' => 11, 'status' => 'terisi'],
-            ['nomor' => 12, 'status' => 'kosong'],
-            ['nomor' => 13, 'status' => 'terisi'],
-            ['nomor' => 14, 'status' => 'terisi'],
-            ['nomor' => 15, 'status' => 'kosong'],
-            ['nomor' => 16, 'status' => 'terisi'],
-            ['nomor' => 17, 'status' => 'terisi'],
-            ['nomor' => 18, 'status' => 'kosong'],
-            ['nomor' => 19, 'status' => 'kosong'],
-            ['nomor' => 20, 'status' => 'terisi'],
-        ];
-
-        foreach ($blokBData as $data) {
-            Rumah::create([
-                'blok' => 'B',
-                'nomor' => $data['nomor'],
-                'status' => $data['status'],
-                'penghuni' => $data['status'] == 'terisi' ? $names[array_rand($names)] : null,
-                'no_telp' => $data['status'] == 'terisi' ? '+62 8' . rand(10, 99) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999) : null,
-                'email' => $data['status'] == 'terisi' ? strtolower(str_replace(' ', '', $names[array_rand($names)])) . '@email.com' : null,
-                'jumlah_penghuni' => $data['status'] == 'terisi' ? rand(2, 5) : 0,
-            ]);
-        }
-
-        // Blok C - 20 rumah (65% terisi - 13 terisi, 7 kosong)
-        $blokCData = [
-            ['nomor' => 1, 'status' => 'terisi'],
-            ['nomor' => 2, 'status' => 'terisi'],
-            ['nomor' => 3, 'status' => 'kosong'],
-            ['nomor' => 4, 'status' => 'terisi'],
-            ['nomor' => 5, 'status' => 'kosong'],
-            ['nomor' => 6, 'status' => 'terisi'],
-            ['nomor' => 7, 'status' => 'terisi'],
-            ['nomor' => 8, 'status' => 'kosong'],
-            ['nomor' => 9, 'status' => 'terisi'],
-            ['nomor' => 10, 'status' => 'terisi'],
-            ['nomor' => 11, 'status' => 'terisi'],
-            ['nomor' => 12, 'status' => 'kosong'],
-            ['nomor' => 13, 'status' => 'terisi'],
-            ['nomor' => 14, 'status' => 'terisi'],
-            ['nomor' => 15, 'status' => 'kosong'],
-            ['nomor' => 16, 'status' => 'terisi'],
-            ['nomor' => 17, 'status' => 'terisi'],
-            ['nomor' => 18, 'status' => 'kosong'],
-            ['nomor' => 19, 'status' => 'kosong'],
-            ['nomor' => 20, 'status' => 'terisi'],
-        ];
-
-        foreach ($blokCData as $data) {
-            Rumah::create([
-                'blok' => 'C',
-                'nomor' => $data['nomor'],
-                'status' => $data['status'],
-                'penghuni' => $data['status'] == 'terisi' ? $names[array_rand($names)] : null,
-                'no_telp' => $data['status'] == 'terisi' ? '+62 8' . rand(10, 99) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999) : null,
-                'email' => $data['status'] == 'terisi' ? strtolower(str_replace(' ', '', $names[array_rand($names)])) . '@email.com' : null,
-                'jumlah_penghuni' => $data['status'] == 'terisi' ? rand(2, 5) : 0,
-            ]);
-        }
-
-        // Blok D - 20 rumah (65% terisi - 13 terisi, 7 kosong)
-        $blokDData = [
-            ['nomor' => 1, 'status' => 'terisi'],
-            ['nomor' => 2, 'status' => 'terisi'],
-            ['nomor' => 3, 'status' => 'kosong'],
-            ['nomor' => 4, 'status' => 'terisi'],
-            ['nomor' => 5, 'status' => 'kosong'],
-            ['nomor' => 6, 'status' => 'terisi'],
-            ['nomor' => 7, 'status' => 'terisi'],
-            ['nomor' => 8, 'status' => 'kosong'],
-            ['nomor' => 9, 'status' => 'terisi'],
-            ['nomor' => 10, 'status' => 'terisi'],
-            ['nomor' => 11, 'status' => 'terisi'],
-            ['nomor' => 12, 'status' => 'kosong'],
-            ['nomor' => 13, 'status' => 'terisi'],
-            ['nomor' => 14, 'status' => 'terisi'],
-            ['nomor' => 15, 'status' => 'kosong'],
-            ['nomor' => 16, 'status' => 'terisi'],
-            ['nomor' => 17, 'status' => 'terisi'],
-            ['nomor' => 18, 'status' => 'kosong'],
-            ['nomor' => 19, 'status' => 'kosong'],
-            ['nomor' => 20, 'status' => 'terisi'],
-        ];
-
-        foreach ($blokDData as $data) {
-            Rumah::create([
-                'blok' => 'D',
-                'nomor' => $data['nomor'],
-                'status' => $data['status'],
-                'penghuni' => $data['status'] == 'terisi' ? $names[array_rand($names)] : null,
-                'no_telp' => $data['status'] == 'terisi' ? '+62 8' . rand(10, 99) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999) : null,
-                'email' => $data['status'] == 'terisi' ? strtolower(str_replace(' ', '', $names[array_rand($names)])) . '@email.com' : null,
-                'jumlah_penghuni' => $data['status'] == 'terisi' ? rand(2, 5) : 0,
-            ]);
-        }
+        
+        $this->command->info('✅ Berhasil generate 60 rumah (4 blok × 15 rumah)');
+        $this->command->info('📊 Status: Random (±70% terisi, ±30% kosong)');
     }
 }

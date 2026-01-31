@@ -50,7 +50,64 @@
     .animate-fade-in-up {
         animation: fade-in-up 1s ease-out;
     }
+    
+    /* Smooth Scroll Configuration */
     html {
         scroll-behavior: smooth;
+        scroll-padding-top: 80px; /* Offset untuk navbar */
+    }
+    
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 </style>
+
+<script>
+// Enhanced Smooth Scroll untuk performa lebih baik
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle semua anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            
+            // Skip jika href hanya "#"
+            if (href === '#' || href === '#!') return;
+            
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                
+                // Smooth scroll dengan offset
+                const offsetTop = target.offsetTop - 80; // 80px untuk navbar
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Update URL tanpa jump
+                if (history.pushState) {
+                    history.pushState(null, null, href);
+                }
+            }
+        });
+    });
+    
+    // Optimize scroll performance
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+});
+</script>

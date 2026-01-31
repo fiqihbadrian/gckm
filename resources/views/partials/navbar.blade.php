@@ -3,20 +3,20 @@
     <nav
         id="navbar"
         class="pointer-events-auto transition-all duration-500 ease-out flex items-center justify-between px-6 md:px-10 py-4"
-        :class="scrolled ? 'mt-4 w-[90%] max-w-6xl rounded-full bg-white/80 backdrop-blur-md shadow-lg' : 'w-full bg-transparent'"
+        :class="scrolled ? 'mt-4 w-[90%] max-w-6xl rounded-full bg-white/90 backdrop-blur-md shadow-lg' : 'w-full {{ Request::is('berita*') ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent' }}'"
     >
         <!-- LOGO -->
-        <a href="/" class="font-bold tracking-wide text-blue-900 text-xl md:text-2xl">
-            {{ config('site.name') }}
+        <a href="{{ route('home') }}" class="font-bold tracking-wide text-green-900 text-xl md:text-2xl">
+            GCKM
         </a>
 
         <!-- DESKTOP MENU -->
         <div class="hidden md:flex gap-8">
-            <a href="#home" class="font-medium text-gray-800 hover:text-blue-600 transition-colors">Home</a>
-            <a href="#denah" class="font-medium text-gray-800 hover:text-blue-600 transition-colors">Denah</a>
-            <a href="#fasilitas" class="font-medium text-gray-800 hover:text-blue-600 transition-colors">Fasilitas</a>
-            <a href="#berita" class="font-medium text-gray-800 hover:text-blue-600 transition-colors">Berita</a>
-            <a href="#kontak" class="font-medium text-gray-800 hover:text-blue-600 transition-colors">Kontak</a>
+            <a href="{{ Request::is('/') ? '#home' : route('home') . '#home' }}" class="font-medium text-gray-800 hover:text-green-600 transition-colors">Home</a>
+            <a href="{{ Request::is('/') ? '#denah' : route('home') . '#denah' }}" class="font-medium text-gray-800 hover:text-green-600 transition-colors">Denah</a>
+            <a href="{{ Request::is('/') ? '#fasilitas' : route('home') . '#fasilitas' }}" class="font-medium text-gray-800 hover:text-green-600 transition-colors">Fasilitas</a>
+            <a href="{{ Request::is('/') ? '#berita' : route('berita') }}" class="font-medium text-gray-800 hover:text-green-600 transition-colors">Berita</a>
+            <a href="{{ Request::is('/') ? '#kontak' : route('home') . '#kontak' }}" class="font-medium text-gray-800 hover:text-green-600 transition-colors">Kontak</a>
         </div>
 
         <!-- MOBILE BUTTON -->
@@ -43,10 +43,10 @@
     style="display: none;"
 >
     <div class="p-6 space-y-2">
-        <a href="#home" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Home</a>
-        <a href="#denah" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Denah</a>
-        <a href="#fasilitas" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Fasilitas</a>
-        <a href="#berita" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Berita</a>
-        <a href="#kontak" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Kontak</a>
+        <a href="{{ Request::is('/') ? '#home' : route('home') . '#home' }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Home</a>
+        <a href="{{ Request::is('/') ? '#denah' : route('home') . '#denah' }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Denah</a>
+        <a href="{{ Request::is('/') ? '#fasilitas' : route('home') . '#fasilitas' }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Fasilitas</a>
+        <a href="{{ Request::is('/') ? '#berita' : route('berita') }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Berita</a>
+        <a href="{{ Request::is('/') ? '#kontak' : route('home') . '#kontak' }}" class="block py-3 px-4 font-medium text-zinc-800 hover:bg-zinc-100 rounded-lg transition-colors">Kontak</a>
     </div>
 </div>

@@ -13,15 +13,15 @@ return [
     */
 
     // Informasi Perumahan
-    'name' => 'Perumahan Asri',
+    'name' => 'Perumahan Griya Citra Kayumanis',
     'tagline' => 'Sistem informasi perumahan yang memudahkan Anda mengetahui denah, penghuni, dan status rumah di lingkungan kita',
     'description' => 'Sistem informasi perumahan yang memudahkan pengelolaan dan komunikasi antar warga.',
     
     // Meta Tags
     'meta' => [
-        'title' => 'Perumahan Asri - Sistem Informasi Perumahan',
-        'description' => 'Website resmi Perumahan Asri - Sistem informasi perumahan yang memudahkan Anda mengetahui denah, penghuni, dan status rumah',
-        'keywords' => 'perumahan, perumahan asri, sistem informasi perumahan, denah perumahan, fasilitas perumahan',
+        'title' => 'Perumahan Griya Citra Kayumanis - Sistem Informasi Perumahan',
+        'description' => 'Website resmi Perumahan Griya Citra Kayumanis - Sistem informasi perumahan yang memudahkan Anda mengetahui denah, penghuni, dan status rumah',
+        'keywords' => 'perumahan, perumahan griya citra kayumanis, sistem informasi perumahan, denah perumahan, fasilitas perumahan',
         'author' => 'Fiqih Badrian',
         'image' => '/images/perumahan-og.jpg', // Open Graph image
     ],
@@ -29,18 +29,18 @@ return [
     // Informasi Kontak
     'contact' => [
         'address' => [
-            'street' => 'Jl. Perumahan Asri No. 123',
-            'city' => 'Jakarta Selatan',
-            'province' => 'DKI Jakarta',
-            'postal_code' => '12345',
+            'street' => 'Jl. Perumahan Griya Citra Kayumanis Blok B No. 1',
+            'city' => 'Bogor Kota',
+            'province' => 'Jawa Barat',
+            'postal_code' => '16168',
         ],
         'phone' => [
             '+62 21 1234 5678',
             '+62 812 3456 7890',
         ],
         'email' => [
-            'info@perumahanasri.com',
-            'admin@perumahanasri.com',
+            'info@gckm.com',
+            'admin@gckm.com',
         ],
         'operating_hours' => [
             'weekdays' => 'Senin - Jumat: 08.00 - 17.00',

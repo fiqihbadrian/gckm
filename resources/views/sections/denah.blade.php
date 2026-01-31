@@ -9,7 +9,7 @@
 }">
     <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16">
-            <span class="text-blue-600 font-semibold text-sm uppercase tracking-wider">Peta Lokasi</span>
+            <span class="text-green-600 font-semibold text-sm uppercase tracking-wider">Peta Lokasi</span>
             <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 mt-2">Denah Perumahan</h2>
             <p class="text-xl text-gray-600">Klik nomor rumah untuk melihat detail</p>
         </div>
@@ -18,7 +18,7 @@
         <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 mb-10">
             <!-- Filter Blok -->
              <div class="flex items-center gap-3 bg-white px-6 py-3 rounded-xl shadow-md">
-                <i class="fas fa-filter text-blue-600"></i>
+                <i class="fas fa-filter text-green-600"></i>
                 <select onchange="window.location.href = this.value" 
                         class="border-0 bg-transparent focus:ring-0 font-medium text-gray-700 cursor-pointer">
                     <option value="{{ route('home') }}#denah" {{ !request('blok') ? 'selected' : '' }}>
@@ -121,11 +121,11 @@
             }
         }">
             <h3 class="text-2xl font-bold text-gray-900 mb-6">
-                <i class="fas fa-map-marked-alt text-blue-600 mr-2"></i>
+                <i class="fas fa-map-marked-alt text-green-600 mr-2"></i>
                 Peta Lokasi Perumahan
             </h3>
             <p class="text-gray-600 mb-4">
-                <i class="fas fa-hand-pointer text-blue-500 mr-2"></i>
+                <i class="fas fa-hand-pointer text-green-500 mr-2"></i>
                 Klik area blok pada peta untuk melihat detail rumah
             </p>
             
@@ -217,21 +217,21 @@
                 <!-- Hover Label -->
                 <div x-show="hoveredBlok" 
                      x-transition
-                     class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg font-bold text-lg">
+                     class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-full shadow-lg font-bold text-lg">
                     <i class="fas fa-map-marker-alt mr-2"></i>
                     <span x-text="'Blok ' + hoveredBlok"></span>
                 </div>
             </div>
             
             <!-- Legend -->
-            <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div class="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
                 <div class="flex flex-wrap gap-4 items-center justify-center text-sm">
                     <div class="flex items-center gap-2">
-                        <i class="fas fa-info-circle text-blue-600"></i>
+                        <i class="fas fa-info-circle text-green-600"></i>
                         <span class="font-semibold text-gray-700">Area yang bisa diklik:</span>
                     </div>
                     <div class="flex items-center gap-2 px-3 py-1 bg-white rounded-lg shadow-sm">
-                        <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         <span class="font-medium text-gray-800">Blok A</span>
                     </div>
                     <div class="flex items-center gap-2 px-3 py-1 bg-white rounded-lg shadow-sm">
@@ -282,7 +282,7 @@
                         <i class="fas fa-home text-white text-2xl"></i>
                         <div>
                             <h3 class="text-xl font-bold text-white">Detail Rumah</h3>
-                            <p class="text-blue-100 text-sm" x-show="selectedRumah">
+                            <p class="text-green-100 text-sm" x-show="selectedRumah">
                                 Blok <span x-text="selectedRumah?.blok"></span> No. <span x-text="selectedRumah?.nomor"></span>
                             </p>
                         </div>
@@ -313,7 +313,7 @@
                         <div class="space-y-4">
                             <!-- Nama Penghuni -->
                             <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                                <i class="fas fa-user text-blue-600 text-xl mt-1"></i>
+                                <i class="fas fa-user text-green-600 text-xl mt-1"></i>
                                 <div class="flex-1">
                                     <p class="text-sm text-gray-600 font-medium">Nama Penghuni</p>
                                     <p class="text-gray-900 font-semibold" x-text="selectedRumah?.penghuni || '-'"></p>
@@ -350,11 +350,11 @@
                             </div>
 
                             <!-- Keterangan -->
-                            <div x-show="selectedRumah?.keterangan" class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                                <i class="fas fa-info-circle text-blue-600 text-xl mt-1"></i>
+                            <div x-show="selectedRumah?.keterangan" class="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                                <i class="fas fa-info-circle text-green-600 text-xl mt-1"></i>
                                 <div class="flex-1">
-                                    <p class="text-sm text-blue-800 font-medium">Keterangan</p>
-                                    <p class="text-blue-900" x-text="selectedRumah?.keterangan"></p>
+                                    <p class="text-sm text-green-800 font-medium">Keterangan</p>
+                                    <p class="text-green-900" x-text="selectedRumah?.keterangan"></p>
                                 </div>
                             </div>
                         </div>
@@ -382,7 +382,7 @@
                 <!-- Footer -->
                 <div class="bg-gray-50 px-6 py-4 flex justify-end">
                     <button @click="showModal = false" 
-                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition">
                         Tutup
                     </button>
                 </div>

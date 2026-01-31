@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8">
                 <div class="flex items-start gap-4">
-                    <div class="bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div class="bg-green-600 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-map-marker-alt text-white text-xl"></i>
                     </div>
                     <div>
@@ -61,21 +61,21 @@
             <form class="space-y-6">
                 <div>
                     <label class="block text-gray-700 font-medium mb-2">Nama Lengkap</label>
-                    <input type="text" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all" placeholder="Masukkan nama Anda">
+                    <input type="text" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 transition-all" placeholder="Masukkan nama Anda">
                 </div>
                 <div>
                     <label class="block text-gray-700 font-medium mb-2">Email</label>
-                    <input type="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all" placeholder="email@example.com">
+                    <input type="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 transition-all" placeholder="email@example.com">
                 </div>
                 <div>
                     <label class="block text-gray-700 font-medium mb-2">Nomor Telepon</label>
-                    <input type="tel" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all" placeholder="+62 812 3456 7890">
+                    <input type="tel" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 transition-all" placeholder="+62 812 3456 7890">
                 </div>
                 <div>
                     <label class="block text-gray-700 font-medium mb-2">Pesan</label>
-                    <textarea rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all" placeholder="Tulis pesan Anda di sini..."></textarea>
+                    <textarea rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 transition-all" placeholder="Tulis pesan Anda di sini..."></textarea>
                 </div>
-                <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl">
+                <button type="submit" class="w-full bg-green-600 text-white py-4 rounded-lg font-semibold hover:bg-green-700 transition-all shadow-lg hover:shadow-xl">
                     <i class="fas fa-paper-plane mr-2"></i>Kirim Pesan
                 </button>
             </form>

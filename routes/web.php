@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/berita', [HomeController::class, 'berita'])->name('berita');
+Route::get('/berita/{berita:slug}', [HomeController::class, 'showBerita'])->name('berita.show');
 
 // Admin Routes (Protected)
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {

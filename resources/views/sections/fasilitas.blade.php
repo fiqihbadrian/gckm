@@ -2,7 +2,7 @@
 <section id="fasilitas" class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16">
-            <span class="text-blue-600 font-semibold text-sm uppercase tracking-wider">Apa Yang Kami Tawarkan</span>
+            <span class="text-green-600 font-semibold text-sm uppercase tracking-wider">Apa Yang Kami Tawarkan</span>
             <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 mt-2">Fasilitas Perumahan</h2>
             <p class="text-xl text-gray-600">Nikmati berbagai fasilitas lengkap untuk kenyamanan Anda</p>
         </div>

@@ -3,7 +3,7 @@
     <div class="max-w-6xl mx-auto px-6">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-4">
             <div class="text-center md:text-left flex-1">
-                <span class="text-blue-600 font-semibold text-sm uppercase tracking-wider">Info & Update</span>
+                <span class="text-green-600 font-semibold text-sm uppercase tracking-wider">Info & Update</span>
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 mt-2">Berita Terbaru</h2>
                 <p class="text-xl text-gray-600">Dapatkan informasi terkini seputar perumahan dan komunitas kita</p>
             </div>
@@ -15,9 +15,9 @@
                         type="text" 
                         name="search" 
                         placeholder="Cari berita..." 
-                        class="w-full md:w-80 px-4 py-3 pr-12 rounded-full border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+                        class="w-full md:w-80 px-4 py-3 pr-12 rounded-full border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition"
                     >
-                    <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-600 hover:text-blue-700">
+                    <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-600 hover:text-green-700">
                         <i class="fas fa-search text-lg"></i>
                     </button>
                 </form>
@@ -41,7 +41,7 @@
                         <span class="text-sm text-gray-500">
                             <i class="far fa-calendar mr-1"></i>{{ $berita->published_at->format('d M Y') }}
                         </span>
-                        <a href="#" class="text-blue-600 font-semibold hover:underline whitespace-nowrap">Baca Selengkapnya &rarr;</a>
+                        <a href="{{ route('berita.show', $berita->slug) }}" class="text-green-600 font-semibold hover:underline whitespace-nowrap">Baca Selengkapnya &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
         
         <!-- Lihat Semua Berita Button -->
         <div class="text-center mt-12">
-            <a href="{{ route('berita') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-lg hover:shadow-xl">
+            <a href="{{ route('berita') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition shadow-lg hover:shadow-xl">
                 <span>Lihat Semua Berita</span>
                 <i class="fas fa-arrow-right"></i>
             </a>

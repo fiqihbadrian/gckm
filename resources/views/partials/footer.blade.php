@@ -27,12 +27,12 @@
                 <h4 class="text-lg font-semibold mb-4">Ikuti Kami</h4>
                 <div class="flex gap-4">
                     @if(config('site.social.facebook'))
-                    <a href="{{ config('site.social.facebook') }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors" target="_blank" rel="noopener">
+                    <a href="{{ config('site.social.facebook') }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors" target="_blank" rel="noopener">
                         <i class="fab fa-facebook-f"></i>
                     </a>
                     @endif
                     @if(config('site.social.twitter'))
-                    <a href="{{ config('site.social.twitter') }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 transition-colors" target="_blank" rel="noopener">
+                    <a href="{{ config('site.social.twitter') }}" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-400 transition-colors" target="_blank" rel="noopener">
                         <i class="fab fa-twitter"></i>
                     </a>
                     @endif

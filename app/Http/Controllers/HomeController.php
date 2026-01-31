@@ -84,4 +84,21 @@ class HomeController extends Controller
         
         return view('berita', compact('beritas', 'search'));
     }
+    
+    public function showBerita(Berita $berita)
+    {
+        // Check if berita is published
+        if (!$berita->is_published || $berita->published_at > now()) {
+            abort(404);
+        }
+        
+        // Get related news (same category, latest 3, exclude current)
+        $relatedBeritas = Berita::published()
+            ->where('id', '!=', $berita->id)
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+        
+        return view('berita-detail', compact('berita', 'relatedBeritas'));
+    }
 }

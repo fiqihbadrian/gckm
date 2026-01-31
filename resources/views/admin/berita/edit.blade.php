@@ -84,3 +84,45 @@
     </form>
 </div>
 @endsection
+
+@push('scripts')
+<!-- Summernote CSS & JS -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-id-ID.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#content').summernote({
+        height: 400,
+        lang: 'id-ID',
+        toolbar: [
+            ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ],
+        placeholder: 'Tulis konten berita lengkap di sini...',
+        tabsize: 2,
+        callbacks: {
+            onImageUpload: function(files) {
+                // Handle image upload if needed
+                for (let i = 0; i < files.length; i++) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#content').summernote('insertImage', e.target.result);
+                    }
+                    reader.readAsDataURL(files[i]);
+                }
+            }
+        }
+    });
+});
+</script>
+@endpush
